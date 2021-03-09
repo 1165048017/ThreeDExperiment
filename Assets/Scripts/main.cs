@@ -163,19 +163,11 @@ public class main : MonoBehaviour
         /// hip 24, head 25, neck 26, spine 27
         /// 
         //////////////////////  更新位置 //////////////////////
-        float tallHeadNeck = Vector3.Distance(pred3D[25], pred3D[26]);
-        float tallNeckSpine = Vector3.Distance(pred3D[26], pred3D[27]);
         float tallShin = (Vector3.Distance(pred3D[16], pred3D[17]) + Vector3.Distance(pred3D[20], pred3D[21]))/2.0f;
-        float tallThigh = (Vector3.Distance(pred3D[15], pred3D[16]) + Vector3.Distance(pred3D[19], pred3D[20]))/2.0f;        
-        float tallSpineCrotch = Vector3.Distance(pred3D[27], (pred3D[15] + pred3D[19])/2.0f);
-        float t = tallHeadNeck + tallNeckSpine + tallSpineCrotch + tallThigh + tallShin;
-        float tall = t * 0.7f + prevTall * 0.3f;
-        prevTall = tall;
-        float dz = tall / centerTall - 1.0f;
-
+        float tallThigh = (Vector3.Distance(pred3D[15], pred3D[16]) + Vector3.Distance(pred3D[19], pred3D[20]))/2.0f;
         float tallUnity = (Vector3.Distance(lhip.position, lknee.position) + Vector3.Distance(lknee.position, lfoot.position)) / 2.0f +
             (Vector3.Distance(rhip.position, rknee.position) + Vector3.Distance(rknee.position, rfoot.position));
-        root.position = pred3D[24] * (tallUnity/(tallThigh+tallShin)); // * movementScale + new Vector3(initPos.x, initPos.y, initPos.z - dz * 0.8f);
+        root.position = pred3D[24] * (tallUnity/(tallThigh+tallShin));
 
         //////////////////////  更新旋转 //////////////////////
         Vector3 forward = TriangleNormal(pred3D[24], pred3D[19], pred3D[15]);
